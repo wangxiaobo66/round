@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="Ie=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+    <style type="text/css">
+        .slider {
+            position: relative;
+            height: 632px;
+            width: 1167px;
+            background-color: #fff;
+        }
+        .slide-page-next {
+            right: 0;
+            background: url(../static/img/arrow-right.png) center no-repeat;
+            background-size: 100%;
+        }
+        .slide-page-prev {
+            left: 0;
+            background: url(../static/img/arrow-left.png)center no-repeat;
+            background-size: 100%;
+        }
+        .slide-page-next,.slide-page-prev {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 50px;
+            height: 60px;
+            z-index: 100;
+        }
+        .list{
+            width: 4500px;
+            float: left;
+            margin-left:-900px;
+        }
+        .slide-item{
+            float: left;
+            position: relative;
+        }
+        .slide-list {
+            width: 900px;
+            height: 600px;
+            margin: 10px auto;
+            overflow: hidden;
+        }
+        .title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 45px;
+            width: 750px;
+            height: 80px;
+            padding: 20px 0 15px 0;
+            margin: auto;
+            background-color: rgba(0,0,0,.7);
+            font-family: "Century Gothic";
+            color: #fff;
+            font-size: 31px;
+            text-align: center;
+            font-weight: 500;
+
+        }
+        .title .more {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 15px;
+            margin: auto;
+            font-size: 14px;
+            color: #cc6121;
+            display: block;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="slider">
+    <a href="javascript:;" class="slide-page-next" id="next"></a>
+    <a href="javascript:;" class="slide-page-prev" id="prev"></a>
+    <div class="slide-list">
+        <div class="list" id="list">
+            <div class="slide-item">
+                <div class="title">
+                    <span>TEASER TITLE COMES HERE</span>
+                    <a class="more" href="#">Click for more</a>
+                </div>
+                <img src="../static/img/slide-3.jpg">
+            </div>
+            <div class="slide-item">
+                <div class="title">
+                    <span>TEASER TITLE COMES HERE</span>
+                    <a class="more" href="#">Click for more</a>
+                </div>
+                <img src="../static/img/slide-1.jpg">
+            </div>
+            <div class="slide-item">
+                <div class="title">
+                    <span>TEASER TITLE COMES HERE</span>
+                    <a class="more" href="#">Click for more</a>
+                </div>
+                <img src="../static/img/slide-2.jpg">
+            </div>
+            <div class="slide-item">
+                <div class="title">
+                    <span>TEASER TITLE COMES HERE</span>
+                    <a class="more" href="#">Click for more</a>
+                </div>
+                <img src="../static/img/slide-3.jpg">
+            </div>
+            <div class="slide-item">
+                <div class="title">
+                    <span>TEASER TITLE COMES HERE</span>
+                    <a class="more" href="#">Click for more</a>
+                </div>
+                <img src="../static/img/slide-1.jpg">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var nextT,prevT,interval,l = 0,index = 1;length = $('.slide-item').length,itmWidth = 900;
+    var listLeft = $('#list').css('marginLeft'),leftNum = parseInt(listLeft);
+    //向右
+    function nextClick(){
+        l=l+30;
+        nextT = setTimeout("nextClick()",10);
+        $('#list').css('marginLeft',leftNum-l);
+        if (l == itmWidth) {
+            clearTimeout(nextT);
+            reset();
+        }
+    }
+    //向左
+    function prevClick(){
+        l=l+30;
+        prevT = setTimeout("prevClick()",10);
+        $('#list').css('marginLeft',leftNum+l);
+        if (l == itmWidth) {
+            clearTimeout(prevT);
+            reset();
+        }
+    }
+    //重置
+    function reset(){
+        l = 0;
+        leftNum = parseInt($('#list').css('marginLeft'));
+        if (index == 4) {
+            index = 1;
+            $('#list').css('marginLeft',(-900*index)+'px');
+            leftNum = parseInt($('#list').css('marginLeft'));
+        }
+        if (index == 0) {
+            index = 3;
+            $('#list').css('marginLeft',(-900*index)+'px');
+            leftNum = parseInt($('#list').css('marginLeft'));
+        }
+
+    }
+    //自动轮播
+    function round(){
+        index = index + 1;
+        nextClick();
+        console.log(index);
+    }
+    window.onload = function(){
+        interval = setInterval("round()",4500);
+        //下一张
+        $('#next').on('click',function(){
+            index = index + 1;
+            nextClick();
+        });
+        //上一张
+        $('#prev').on('click',function(){
+            index = index - 1;
+            prevClick();
+        })
+    }
+</script>
+</html>
